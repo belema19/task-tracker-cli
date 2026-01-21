@@ -17,7 +17,7 @@ public class Task {
         this.description = builder.description;
         this.status = builder.status;
         this.createdAt = (builder.createdAt != null) ? builder.createdAt : LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = (builder.updatedAt != null) ? builder.updatedAt : LocalDateTime.now();
     }
 
     public int getId() { return this.id; }
@@ -31,22 +31,38 @@ public class Task {
                 .id(this.id)
                 .description(this.description)
                 .status(this.status)
-                .createdAt(this.createdAt);
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt);
     }
 
-    public static Task create(int id, String description) {
+    public static Task create(String description) {
         return new Builder()
-                .id(id)
                 .description(description)
                 .status(TaskStatus.PENDING)
                 .build();
     }
 
-    public static Task create(int id, String description, TaskStatus status) {
+    public static Task create(String description, TaskStatus status) {
+        return new Builder()
+                .description(description)
+                .status(status)
+                .build();
+    }
+
+    public static Task restore(
+            int id,
+            String description,
+            TaskStatus status,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
+    )
+    {
         return new Builder()
                 .id(id)
                 .description(description)
                 .status(status)
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
                 .build();
     }
 
@@ -67,6 +83,7 @@ public class Task {
         private String description;
         private TaskStatus status = TaskStatus.PENDING;
         private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
 
         public Builder id(int id) {
             this.id = id;
@@ -85,6 +102,11 @@ public class Task {
 
         public Builder createdAt(LocalDateTime createdAt) {
             this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder updatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
 
