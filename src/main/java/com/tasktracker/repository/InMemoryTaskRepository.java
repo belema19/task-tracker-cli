@@ -12,7 +12,7 @@ public class InMemoryTaskRepository implements TaskRepository {
     private int nextId = 1;
 
     @Override
-    public Task save(Task task) throws TaskNotFound {
+    public Task save(Task task) {
        int taskId = task.getId();
 
        if (taskId == 0) {
@@ -25,9 +25,7 @@ public class InMemoryTaskRepository implements TaskRepository {
        return newTask;
        }
 
-       if (tasks.replace(taskId, task) == null) {
-           throw new TaskNotFound("update", taskId);
-       }
+       tasks.put(taskId, task);
        return task;
     }
 
@@ -49,11 +47,8 @@ public class InMemoryTaskRepository implements TaskRepository {
     }
 
     @Override
-    public void delete(int id) throws TaskNotFound {
-        if (!tasks.containsKey(id)) {
-            throw new TaskNotFound("delete", id);
-        }
-        tasks.remove(id);
+    public Optional<Task> delete(int id) throws TaskNotFound {
+        return Optional.ofNullable(tasks.remove(id));
     }
 
 }

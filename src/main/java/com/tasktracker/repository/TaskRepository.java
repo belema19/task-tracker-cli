@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TaskRepository {
-    Task save(Task task) throws TaskNotFound;
+    Task save(Task task);
     Optional<Task> findById(int id);
     List<Task> findAll();
     List<Task> findByStatus(TaskStatus status);
-    void delete(int id) throws TaskNotFound;
+    Optional<Task> delete(int id) throws TaskNotFound;
 }
