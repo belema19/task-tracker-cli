@@ -38,14 +38,7 @@ public class Task {
     public static Task create(String description) {
         return new Builder()
                 .description(description)
-                .status(TaskStatus.PENDING)
-                .build();
-    }
-
-    public static Task create(String description, TaskStatus status) {
-        return new Builder()
-                .description(description)
-                .status(status)
+                .status(TaskStatus.TODO)
                 .build();
     }
 
@@ -81,7 +74,7 @@ public class Task {
     public static class Builder {
         private int id;
         private String description;
-        private TaskStatus status = TaskStatus.PENDING;
+        private TaskStatus status = TaskStatus.TODO;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 

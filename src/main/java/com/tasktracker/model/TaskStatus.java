@@ -1,7 +1,7 @@
 package com.tasktracker.model;
 
 public enum TaskStatus {
-    PENDING("Pending"),
+    TODO("Todo"),
     IN_PROGRESS("In progress"),
     DONE("Done");
 
