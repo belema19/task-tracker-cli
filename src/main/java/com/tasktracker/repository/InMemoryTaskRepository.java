@@ -12,7 +12,7 @@ public class InMemoryTaskRepository implements TaskRepository {
     private int nextId = 1;
 
     @Override
-    public Task save(Task task) {
+    public Task save(Task task) throws TaskNotFound {
        int taskId = task.getId();
 
        if (taskId == 0) {

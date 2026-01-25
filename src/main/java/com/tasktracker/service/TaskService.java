@@ -7,7 +7,7 @@ import com.tasktracker.model.TaskStatus;
 import java.util.List;
 
 public interface TaskService {
-    Task createTask(String description);
+    Task createTask(String description) throws TaskNotFound;
     Task updateTaskDescription(int id, String description) throws TaskNotFound;
     Task updateTaskStatus(int id, TaskStatus status) throws TaskNotFound;
     Task deleteTask(int id) throws TaskNotFound;

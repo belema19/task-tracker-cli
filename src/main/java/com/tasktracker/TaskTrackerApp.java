@@ -4,10 +4,12 @@ import com.tasktracker.exception.*;
 import com.tasktracker.model.Task;
 import com.tasktracker.model.TaskStatus;
 import com.tasktracker.repository.InMemoryTaskRepository;
+import com.tasktracker.repository.JsonTaskRepository;
 import com.tasktracker.repository.TaskRepository;
 import com.tasktracker.service.TaskService;
 import com.tasktracker.service.TaskServiceImpl;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,8 @@ public class TaskTrackerApp {
     }
 
     static void main(String[] args) {
-        TaskRepository repository = new InMemoryTaskRepository();
+        String storage = "tasks.json";
+        TaskRepository repository = new JsonTaskRepository(storage);
         TaskService service = new TaskServiceImpl(repository);
 
         TaskTrackerApp app = new TaskTrackerApp(service);
@@ -83,7 +86,7 @@ public class TaskTrackerApp {
         }
     }
 
-    private void handleTaskCreation(String[] args) {
+    private void handleTaskCreation(String[] args) throws TaskNotFound {
         Task newTask = service.createTask(args[1]);
         printMessage("created", newTask);
     }

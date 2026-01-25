@@ -15,7 +15,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task createTask(String description) {
+    public Task createTask(String description) throws TaskNotFound {
         Task newTask = Task.create(description);
         return repository.save(newTask);
     }

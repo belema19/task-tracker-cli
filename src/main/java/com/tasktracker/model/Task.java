@@ -12,6 +12,14 @@ public class Task {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
+    private Task() {
+        this.id = 0;
+        this.description = null;
+        this.status = null;
+        this.createdAt = null;
+        this.updatedAt = null;
+    }
+
     private Task(Builder builder) {
         this.id = builder.id;
         this.description = builder.description;
@@ -42,23 +50,6 @@ public class Task {
                 .build();
     }
 
-    public static Task restore(
-            int id,
-            String description,
-            TaskStatus status,
-            LocalDateTime createdAt,
-            LocalDateTime updatedAt
-    )
-    {
-        return new Builder()
-                .id(id)
-                .description(description)
-                .status(status)
-                .createdAt(createdAt)
-                .updatedAt(updatedAt)
-                .build();
-    }
-
     @Override
     public String toString() {
         return String.format(
@@ -80,6 +71,15 @@ public class Task {
 
         public Builder id(int id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder fromPrototype(Task prototype) {
+            this.description = prototype.getDescription();
+            this.status = prototype.getStatus();
+            this.id = prototype.getId();
+            this.createdAt = prototype.getCreatedAt();
+            this.updatedAt = prototype.getUpdatedAt();
             return this;
         }
 
@@ -106,6 +106,5 @@ public class Task {
         public Task build() {
             return new Task(this);
         }
-
     }
 }

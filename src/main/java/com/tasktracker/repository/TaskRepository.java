@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TaskRepository {
-    Task save(Task task);
+    Task save(Task task) throws TaskNotFound;
     Optional<Task> findById(int id);
     List<Task> findAll();
     List<Task> findByStatus(TaskStatus status);
